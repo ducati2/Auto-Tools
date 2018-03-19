@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+.navbar {
+	margin-bottom: 20px;
+}
+
+.col-lg-4 {
+	text-align: center;
+}
+
+.footer {
+    /*font-size: 12px;*/
+}
+
+/* pattern tree*/
+.node {
+    cursor: pointer;
+}
+  
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+  
+.node text {
+    font: 10px sans-serif;
+}
+  
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+
+.breaking_color { stroke: #f8d7da !important; }
+/* pattern tree*/
+
+.jumbotron {
+    background-color:transparent !important; 
+}
+
+/* customize scrollbar style */
+::-webkit-scrollbar {
+    width: 8px; height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+th {vertical-align: middle!important;}
+.form-group.required label:after {content:" *"; color:red;font-weight: bold;}

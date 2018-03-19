@@ -1,0 +1,95 @@
+<div class="jumbotron container">
+  <form #f="ngForm">
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Engineering case</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control form-control-sm" value="{{caseDetail?.CaseID}}" name="LCID" placeholder="LCM case ID"
+          ngModel>
+      </div>
+      <button type="button" class="btn btn-info col-sm-1 btn-sm" (click)="queryCase(f);">Query</button>
+
+    </div>
+    <div class="form-group row required">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Product</label>
+      <div class="col-sm-4">
+        <select class="form-control form-control-sm" #productID name="ProductID" required ngModel (change)="onProductChange($event.target.value)">
+          <option *ngFor="let p of productDict" value="{{p.ID}}" >{{p.ProductName}}</option>
+        </select>
+        <div *ngIf="productiderror">Please provide a valid product name.</div>
+      </div>
+    </div>
+    <div class="form-group row required">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Version</label>
+      <div class="col-sm-4">
+        <select class="form-control form-control-sm" #versionID name="VersionID" required ngModel>
+          <option *ngFor="let v of productVersionDict" value="{{v.ID}}">{{v.Name}}</option>
+        </select>
+        <div *ngIf="versionerror">Please provide a valid version name.</div>
+      </div>
+    </div>
+    <div class="form-group row required">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Component</label>
+      <div class="col-sm-4">
+        <select class="form-control form-control-sm" #componentID name="ComponentID" required ngModel>
+          <option *ngFor="let c of productComponentDict" value="{{c.ID}}">{{c.Name}}</option>
+        </select>
+        <div *ngIf="componenterror">Please provide a valid component name.</div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Description</label>
+      <div class="col-sm-10">
+        <textarea class="form-control form-control-sm" name="Description" ngModel rows="3" value={{caseDetail?.Description}}></textarea>
+      </div>
+    </div>
+    <div class="form-group row required">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Trace directories</label>
+      <div class="col-sm-8">
+        <input type="email" class="form-control form-control-sm" name="Trace" value={{caseDetail?.Trace}} placeholder="JACK\LCXXXX\CDF-One;JACK\LCXXXX\CDF-Two"
+         ngModel triggers="focus" placement="bottom" popoverTitle="Tip" required ngbPopover="Create a new folder under \\w2k16st-96ipaj6\rawtracedir and upload all raw CDF traces into it. Use &quot;;&quot; to separate multi folders."
+            #t="ngbPopover" (document:click)="t.close()" (click)="$event.stopPropagation()">
+        <div *ngIf="traceerror">Please provide a valid trace path.</div>
+      </div>
+      <div class="col-sm-2">
+        <a class="card-link col-form-label-sm font-weight-bold" href="/dl/CadTraceUploader.zip">Upload tool</a>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">TMF directories</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control form-control-sm" name="TMF" placeholder="TMF files UNC path" ngModel>
+      </div>
+    </div>
+    <div class="form-group row" style="display: none">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">PDB directories</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control form-control-sm" name="PDB" placeholder="PDB files UNC path" ngModel>
+      </div>
+    </div>
+    <div class="form-group row" style="display: none">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Source directories</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control form-control-sm" name="Source" placeholder="Source files UNC path" ngModel>
+      </div>
+    </div>
+
+    <div class="form-group row required">
+      <label for="" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Pattern Select</label>
+      <div class="col-sm-10">
+        <select class="form-control form-control-sm" #patternID name="PatternID" required ngModel>
+          <option *ngFor="let t of patternDict" value="{{t.ID}}" >{{t.Name}}</option>
+        </select>
+      </div>
+    </div>
+    
+
+    <div class="form-group row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-10">
+        <button (click)="addJob(f);" class="btn btn-primary col-sm-2 btn-sm">Create</button>
+        <button type="submit" class="btn btn-primary col-sm-2 btn-sm" disabled>Save</button>
+        <button type="submit" class="btn btn-primary col-sm-2 btn-sm" disabled>Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

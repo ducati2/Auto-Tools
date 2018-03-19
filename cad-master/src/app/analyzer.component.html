@@ -1,0 +1,71 @@
+<!-- Language hints can be put in XML application directive style comments. -->
+<div class="form-row">
+    <div class="form-group col-sm-2">
+        <label for="inputEmail4" class="col-form-label-sm">Module</label>
+        <input type="email" class="form-control form-control-sm" id="inputEmail4" #module placeholder="Module name">
+    </div>
+    <div class="form-group col-sm-2">
+        <label for="inputEmail4" class="col-form-label-sm">Src</label>
+        <input type="email" class="form-control form-control-sm" id="inputEmail4" #src placeholder="Source file name">
+    </div>
+    <div class="form-group col-sm-2">
+        <label for="inputEmail4" class="col-form-label-sm">Function</label>
+        <input type="email" class="form-control form-control-sm" id="inputEmail4" #func placeholder="Function name">
+    </div>
+    <div class="form-group col-sm-2">
+        <label for="inputEmail4" class="col-form-label-sm">Message</label>
+        <input type="email" class="form-control form-control-sm" id="inputEmail4" #message placeholder="Trace message">
+    </div>
+    <div class="form-group col-sm-1">
+        <label for="inputEmail4" class="col-form-label-sm">&nbsp;</label>
+        <button type="submit" class="btn btn-primary form-control form-control-sm" style="line-height: 0.8;" (click)="traceSearch(module.value, src.value, func.value, message.value)">Search</button>
+    </div>
+    <div class="form-group col-sm-3"></div>
+</div>
+<div class="row" style="margin-left: 0; margin-right: 0;">
+    <div class="col" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScroll()"
+        style="overflow-x: auto; padding-left: 0; padding-right: 0; font-family: Consolas; border: 1px solid #eee; max-height: 800px; ">
+        <table class="table-bordered table-sm table-hover small text-nowrap">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>CPU</th>
+                    <th>Time</th>
+                    <th>Thread</th>
+                    <th>Process</th>
+                    <th>Session</th>
+                    <th>Module</th>
+                    <th>Src</th>
+                    <th>Line</th>
+                    <th>Function</th>
+                    <th>Level</th>
+                    <th>Class</th>
+                    <th>Message</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let line of trace" (click)="rowSelected(line)">
+                    <td [attr.line]="line.ID">{{line.ID}}</td>
+                    <td>{{line.CPU}}</td>
+                    <td>{{line.LogTime | date:'yyyy/MM/dd hh:mm:ss'}}</td>
+                    <td>{{line.ThreadID}}</td>
+                    <td>{{line.ProcessID}}</td>
+                    <td>{{line.SessionID}}</td>
+                    <td>{{line.ModuleName}}</td>
+                    <td>{{line.Src}}</td>
+                    <td>{{line.LineNum}}</td>
+                    <td>{{line.FunctionName}}</td>
+                    <td>{{line.LevelID}}</td>
+                    <td>{{line.ClassName}}</td>
+                    <td>{{line.Message}}</td>
+                    <td>{{line.Comments}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col" style="padding-right: 0; max-height: 800px; overflow-x: auto;" [innerHTML]="source">
+    </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ }"></ngx-loading>

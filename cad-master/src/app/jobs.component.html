@@ -1,0 +1,35 @@
+<div class="container">
+  <p class="text-right">
+    <span class="badge badge-info">Total <span class="badge badge-light">{{jobSummary?.total}}</span></span>
+    <span class="badge badge-primary">Processing <span class="badge badge-light">{{jobSummary?.processing}}</span></span>
+    <span class="badge badge-success">Success <span class="badge badge-light">{{jobSummary?.success}}</span></span>
+    <span class="badge badge-warning">Failure <span class="badge badge-light">{{jobSummary?.failure}}</span></span>
+  </p>
+  <table class="table table-bordered ">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>LCM Case</th>
+        <th>Status</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Product</th>
+        <th>Version</th>
+        <th>Component</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jobDetail of jobDetails">
+        <th scope="row"><a [routerLink]="['/report', jobDetail.ID]">{{jobDetail.ID}}</a></th>
+        <td><a href="http://onefix/Fix/{{jobDetail.LCID}}" target="_blank">{{jobDetail.LCID}}</a></td>
+        <td>{{statusDict[jobDetail.Status]}}</td>
+        <td>{{jobDetail.StartTime | date:'yyyy/MM/dd hh:mm:ss'}}</td>
+        <td>{{jobDetail.EndTime | date:'yyyy/MM/dd hh:mm:ss'}}</td>
+        <td>{{productDict[jobDetail.ProductID]}}</td>
+        <td>{{productVersionDict[jobDetail.VersionID]}}</td>
+        <td>{{productComponentDict[jobDetail.ComponentID]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ngx-loading [show]="loading" [config]="{ }"></ngx-loading>
